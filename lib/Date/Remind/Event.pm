@@ -9,7 +9,7 @@ use constant {
     MINUTES_PER_HOUR => 60,
 };
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 our $ERROR = '';
 
 
@@ -17,11 +17,10 @@ sub new {
     my $proto = shift;
     my $text  = shift || croak 'usage: new($text)';
 
-    my ( $date, $special, $tag, $dur, $time, $body )
+    my ( $date, $special, $tag, $duration, $time, $body )
         = split(/ /, $text, 6);
 
     my ( $y, $mon, $d ) = split( /\//, $date );
-    my ( $h, $m, $s );
 
     my $dt = DateTime->new(
         year => $y,
@@ -31,28 +30,30 @@ sub new {
         minute => $time eq '*' ? 0 : $time % MINUTES_PER_HOUR,
     );
 
-    my $dtdur;
+    my $dtduration;
 
-    if ( $dur eq '*' ) {
+    if ( $duration eq '*' ) {
         my $end = $dt->clone;
         $end->add( days => 1 );
         $end->truncate( to => 'day' );
-        $dtdur = $end - $dt;
+        $dtduration = $end - $dt;
     }
     else {
-        $dtdur = DateTime::Duration->new(
-            minutes => $dur,
+        $dtduration = DateTime::Duration->new(
+            minutes => $duration,
         );
 
-        # There is an extra duration field, not documented in rem2ps
-        $body =~ s/.*? //;
+        # Depending on what value of -b remind is called with, the body
+        # is prefixed with human-readable duration text. Lets remove
+        # (only) that text if it is there.
+        $body =~ s/^(\d+:\d+([ap]m)?-\d+:\d+([ap]m)? )?//;
     }
     
     my $self  = {
         dt   => $dt,
         tag  => $tag,
         body => $body,
-        dur  => $dtdur,
+        duration  => $dtduration,
     };
 
     my $class = ref($proto) || $proto;
@@ -63,11 +64,11 @@ sub new {
 sub date { shift->{dt} };
 sub tag { shift->{tag} };
 sub body { shift->{body} };
-sub dur { shift->{dur} };
+sub duration { shift->{duration} };
 
 sub end {
     my $self = shift;
-    return $self->{dt}->clone->add( $self->{dur} );
+    return $self->{dt}->clone->add( $self->{duration} );
 };
 
 
@@ -77,7 +78,7 @@ __END__
 
 =head1 NAME
 
-Date::Remind::Event - A 'remind' event object
+Date::Remind::Event - Manipulate 'remind' output with Perl
 
 =head1 SYNOPSIS
 
@@ -88,22 +89,22 @@ Date::Remind::Event - A 'remind' event object
   );
 
   print 'Start:       ' . $e->date->hms . "\n";
-  print 'Duration:    ' . $e->dur->minutes . "min\n";
+  print 'Duration:    ' . $e->duration->minutes . "min\n";
   print 'Description: ' . $e->body . "\n";
 
 =head1 DESCRIPTION
 
-B<Date::Remind::Event> provides an object interface to L<remind>(1)
-generated events.
+B<Date::Remind::Event> provides a Perl object interface to textual
+events emitted by L<remind>(1).
 
 =head1 CONSTRUCTOR
 
 =head2 new($text) => Date::Remind::Event
 
-Convert a single line of $text into a Date::Remind::Event object.
-$text is expected to be a line of the output produced by the '-s'
-argument to L<remind>(1), as defined in the rem2ps(1) manpage under
-"REM2PS INPUT FORMAT".
+Converts $text into a single Date::Remind::Event object.  $text is
+expected to be a line of the output produced by the '-s' argument to
+L<remind>(1), as defined in the rem2ps(1) manpage under "REM2PS INPUT
+FORMAT".
 
 =head1 ATTRIBUTES
 
@@ -111,7 +112,7 @@ argument to L<remind>(1), as defined in the rem2ps(1) manpage under
 
 The start of the event.
 
-=head2 dur => DateTime::Duration
+=head2 duration => DateTime::Duration
 
 The length of the event.
 

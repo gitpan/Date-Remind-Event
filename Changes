@@ -1,3 +1,13 @@
 Date:   Sat Jun 26 17:59:36 2010 +0200
 
     Initial Release.
+
+Sat Jun 26 22:27:27 CEST 2010
+      Removed META.yml from git control.
+      Add .git to MANIFEST.SKIP
+      Small cleanups to Date::Remind::Event.
+      More small cleanups, tests, and doc improvements.
+      Better handle various inputs for different -b values.
+      Rename dur() to duration()
+      Uploaded to CPAN as v0.03.
+

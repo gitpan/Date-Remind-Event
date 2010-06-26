@@ -1,5 +1,5 @@
 ---
-abstract: "A 'remind' event object"
+abstract: "Manipulate 'remind' output with Perl"
 author:
   - 'Mark Lawrence <nomad@null.net>'
 build_requires:
@@ -23,4 +23,4 @@ no_index:
 requires:
   DateTime: 0
   DateTime::Duration: 0
-version: 0.02
+version: 0.03
