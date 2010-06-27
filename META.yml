@@ -23,4 +23,7 @@ no_index:
 requires:
   DateTime: 0
   DateTime::Duration: 0
-version: 0.03
+resources:
+  bugtracker: http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Date-Remind-Event
+  repository: git://github.com/mlawren/date-remind-event.git
+version: 0.04
