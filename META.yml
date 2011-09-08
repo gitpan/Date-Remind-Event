@@ -8,8 +8,8 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.94'
-license: GPL
+generated_by: 'Module::Install version 1.00'
+license: gpl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -25,5 +25,6 @@ requires:
   DateTime::Duration: 0
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Date-Remind-Event
+  license: http://opensource.org/licenses/gpl-license.php
   repository: git://github.com/mlawren/date-remind-event.git
-version: 0.04
+version: 0.05

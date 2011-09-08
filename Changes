@@ -1,6 +1,22 @@
-Sat Jun 26 17:59:36 CEST 2010
+0.05 (2011-09-08)
 
-    Initial Release.
+    API Changes:
+        - N/A
+
+    New Features:
+        - N/A
+
+    Enhancements:
+        - Small documentation fixes.
+
+    Bug Fixes:
+        - N/A
+
+Sun Jun 27 10:56:12 CEST 2010
+
+    Add bugtracker and repo information to Makefile.PL.
+    Allow caller to specify what -b value was given to remind.
+    Uploaded to CPAN as v0.04.
 
 Sat Jun 26 22:27:27 CEST 2010
 
@@ -12,9 +28,7 @@ Sat Jun 26 22:27:27 CEST 2010
     Rename dur() to duration()
     Uploaded to CPAN as v0.03.
 
-Sun Jun 27 10:56:12 CEST 2010
+Sat Jun 26 17:59:36 CEST 2010
 
-    Add bugtracker and repo information to Makefile.PL.
-    Allow caller to specify what -b value was given to remind.
-    Uploaded to CPAN as v0.04.
+    Initial Release.
 
